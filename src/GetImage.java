@@ -8,9 +8,11 @@
 */
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 public class GetImage{
 	/**
 	 * method to get and image give location
@@ -20,13 +22,13 @@ public class GetImage{
 	 */
 	public Image getImage(String name, int width, int height){
 		Image newImage = null; // image
-		
 		try { 
-			BufferedImage newbufferedImage = ImageIO.read(Speed.class.getClassLoader().getResource(name)); // create buffered image
+			GetFile getFile = new GetFile();
+			BufferedImage newbufferedImage = ImageIO.read(getFile.getFile(name)); // create buffered image
 			newImage = newbufferedImage.getScaledInstance(width,height,Image.SCALE_DEFAULT); // set new image as buffered image
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, e, null, 0);
 		} // end catch
 		
 		return newImage;

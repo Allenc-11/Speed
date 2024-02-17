@@ -71,19 +71,17 @@ public class PlayerControl {
 		position2 = (int)(width/1.5); // position of thief
 		
 		try {
-			File english = new File(getClass().getClassLoader().getResource("english.txt").toURI()); // create new file 
+			GetFile getFile = new GetFile();
+			File english = getFile.getFile("english.txt"); // create new file 
 			scan = new Scanner(english); // create new scanner for file
-			correctSoundEffect = new Sound(new File(Speed.class.getClassLoader().getResource("Correct.wav").toURI())); // create new sound
-			incorrectSoundEffect = new Sound(new File(Speed.class.getClassLoader().getResource("Wrong.wav").toURI())); // create new sound
-		} catch (URISyntaxException e1) {
+			correctSoundEffect = new Sound(getFile.getFile("Correct.wav")); // create new sound
+			incorrectSoundEffect = new Sound(getFile.getFile("Wrong.wav")); // create new sound
+		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			JOptionPane.showMessageDialog(null, e, null, 0);
 		}catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, e, null, 0);
 		} // end catch
 		
 		while(scan.hasNext()) //while there is still line to read

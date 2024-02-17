@@ -12,10 +12,15 @@ import java.net.URISyntaxException;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class Speed {
 	public static void main(String[] args) throws IOException, UnsupportedAudioFileException, LineUnavailableException, URISyntaxException{
-		Sound bgm = new Sound(new File(Speed.class.getClassLoader().getResource("BGM.wav").toURI())); // create new sound
+		try {
+		String currentDirectoryPath = System.getProperty("user.dir");
+		currentDirectoryPath = currentDirectoryPath.replace("\\src", "");
+		Sound bgm = new Sound(new File(currentDirectoryPath, "bin/BGM.wav")); // create new sound
+		
 		GetScreenDimension getSize = new GetScreenDimension(); // create new GetScreenDimesnsion
 		JFrame window = new JFrame("Speed"); // create new JFrame
 		Dimension screen = getSize.getScreenSize(); // create new dimension
@@ -29,6 +34,9 @@ public class Speed {
 		window.setExtendedState(JFrame.MAXIMIZED_BOTH); //set to full screen
 		window.setResizable(false);//set the frame to not resizable
 		bgm.playLoop(); // play bgm
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e, null, 0);
+		}
 	} // end main
 	
 } // end class Speed
